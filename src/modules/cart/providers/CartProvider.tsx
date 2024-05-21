@@ -101,7 +101,6 @@ const CartProvider = ({ children }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  console.log({ cartStatus }, "@@@");
   /**
    * Preserving cart state, To restore
    * Incase of error, while change in quantity
