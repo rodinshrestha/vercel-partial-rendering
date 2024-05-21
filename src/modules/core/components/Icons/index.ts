@@ -1,0 +1,13 @@
+export { default as IconArrowRight } from '@/core/components/Icons/IconItems/ArrowRight';
+export { default as IconCart } from '@/core/components/Icons/IconItems/Cart';
+export { default as IconHeartOutline } from '@/core/components/Icons/IconItems/HeartOutline';
+export { default as IconHeartSolid } from '@/core/components/Icons/IconItems/HeartSolid';
+export { default as IconUser } from '@/core/components/Icons/IconItems/User';
+export { default as IconPlus } from '@/core/components/Icons/IconItems/Plus';
+export { default as IconMinus } from '@/core/components/Icons/IconItems/Minus';
+export { default as IconClose } from '@/core/components/Icons/IconItems/Close';
+export { default as IconAngleUpArrow } from '@/core/components/Icons/IconItems/AngleUpArrow';
+export { default as IconAngleDownArrow } from '@/core/components/Icons/IconItems/AngleDownArrow';
+export { default as IconAngleRightArrow } from '@/core/components/Icons/IconItems/AngleRightArrow';
+export { default as IconAngleLeftArrow } from '@/core/components/Icons/IconItems/AngleLeftArrow';
+export { default as IconSearch } from '@/core/components/Icons/IconItems/search';

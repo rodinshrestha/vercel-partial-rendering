@@ -18,6 +18,17 @@
       }
     ],
     "paths": {
+      "@/auth/*": ["./src/modules/auth/*"],
+      "@/core/*": ["./src/modules/core/*"],
+      "@/cart/*": ["./src/modules/cart/*"],
+      "@/checkout/*": ["./src/modules/checkout/*"],
+      "@/builder/*": ["./src/modules/builder/*"],
+      "@/product/*": ["./src/modules/product/*"],
+      "@/wishlist/*": ["./src/modules/wishlist/*"],
+      "@/search/*": ["./src/modules/search/*"],
+      "@/category/*": ["./src/modules/category/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/order/*": ["./src/modules/order/*"],
       "@/*": ["./src/*"]
     }
   },

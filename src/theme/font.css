@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'jacson';
+  src: url('fonts/jacson.eot?1qgunt');
+  src:
+    url('fonts/jacson.eot?1qgunt#iefix') format('embedded-opentype'),
+    url('fonts/jacson.ttf?1qgunt') format('truetype'),
+    url('fonts/jacson.woff?1qgunt') format('woff'),
+    url('fonts/jacson.svg?1qgunt#jacson') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'jacson' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow:before {
+  content: '\e900';
+}
+.icon-up-arrow:before {
+  content: '\e901';
+}
+.icon-down-arrow:before {
+  content: '\e902';
+}
+.icon-left-arrow:before {
+  content: '\e903';
+}
+.icon-right-arrow:before {
+  content: '\e904';
+}
+.icon-right_arrow:before {
+  content: '\e90a';
+}
+.icon-long-down:before {
+  content: '\e905';
+}
+.icon-long-up:before {
+  content: '\e906';
+}
+.icon-long-left:before {
+  content: '\e907';
+}
+.icon-left_arrow:before {
+  content: '\e909';
+}
+.icon-long-right:before {
+  content: '\e908';
+}
+.icon-minus:before {
+  content: '\e909';
+}
+.icon-plus:before {
+  content: '\e90a';
+}
+.icon-user:before {
+  content: '\e90b';
+}
+.icon-search:before {
+  content: '\e90c';
+}
+.icon-heart-fill:before {
+  content: '\e90d';
+}
+.icon-heart-solid:before {
+  content: '\e90e';
+}
+.icon-cart:before {
+  content: '\e90f';
+}
+.icon-youtube:before {
+  content: '\e910';
+}
+.icon-facebook:before {
+  content: '\e911';
+}
+.icon-pinterest:before {
+  content: '\e912';
+}
+.icon-instagram:before {
+  content: '\e913';
+}

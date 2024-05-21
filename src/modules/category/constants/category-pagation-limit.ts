@@ -1,0 +1,1 @@
+export const CATEGORY_PAGINATION_LIMIT = 16;

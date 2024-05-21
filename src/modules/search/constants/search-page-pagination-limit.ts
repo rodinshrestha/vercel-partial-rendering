@@ -1,0 +1,1 @@
+export const SEARCH_PAGINATION_LIMIT = 16;
