@@ -6,5 +6,5 @@ services:
       context: /root/storefront/
       dockerfile: /root/storefront/docker/Dockerfile-uat
     ports:
-      - 3003:3000
+      - 3005:3000
     restart: on-failure:5
