@@ -1,0 +1,18 @@
+services:
+  - docker:dind
+
+
+deploy-uat:
+  stage: deploy
+  image: kroniak/ssh-client
+  before_script:
+    - echo "Deploying app in dev env "
+  script:
+    - chmod 400 $private_key
+    - rm -rf .git*
+    - ssh -o StrictHostKeyChecking=no -i $private_key root@178.73.197.248 "mkdir -p /tmp/storefront-static-test ; mkdir -p /root/storefront-static-test"
+    - tar -czf - . | ssh -o StrictHostKeyChecking=no -i $private_key root@178.73.197.248 "tar -xzf - -C /tmp/storefront-static-test"
+    - ssh -o StrictHostKeyChecking=no -i $private_key root@178.73.197.248 "rm -rf /root/storefront-static-test/* ; rm -rf /root/storefront-static-test/.* ; cp -r /tmp/storefront-static-test/. /root/storefront-static-test/ ; rm -rf /tmp/storefront-static-test"
+    - ssh -o StrictHostKeyChecking=no -i $private_key root@178.73.197.248 "cd /root/storefront-static-test/docker/; docker-compose -f docker-compose-uat.yml up --build --force-recreate -d"
+  only:
+    - main
