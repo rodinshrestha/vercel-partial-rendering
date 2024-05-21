@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  jack-b2c:
+    container_name: jack
+    build:
+      context: /root/storefront/
+      dockerfile: /root/storefront/docker/Dockerfile-dev
+    ports:
+      - 3001:3000
+    restart: on-failure:5
