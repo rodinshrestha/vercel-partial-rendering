@@ -1,3 +1,3 @@
 export const getChannelStore = () => {
-    return {channel: 'se', store: 'sv'}
-}
+  return { channel: "se", store: "sv" };
+};

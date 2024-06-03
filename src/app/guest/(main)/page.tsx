@@ -5,6 +5,7 @@ import { getResolver } from "@/core/services/resolver-services";
 import { getMetaData } from "@/core/utils/format";
 import Builder from "@/builder/index";
 import { makeStaticHeaders } from "@/core/utils/static-header";
+import { getFavIcon } from "@/core/utils/get-favicon";
 
 export async function generateStaticParams() {
   return [];
@@ -12,6 +13,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata() {
   const headers = makeStaticHeaders();
+
+  console.log(headers);
 
   const resolver = await getResolver(headers);
   const { home } = resolver.data.pages || {};
@@ -24,6 +27,9 @@ export async function generateMetadata() {
     title,
     description,
     keywords,
+    icons: {
+      icon: getFavIcon(),
+    },
   };
 }
 

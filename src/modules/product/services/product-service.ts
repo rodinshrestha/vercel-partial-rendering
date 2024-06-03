@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
 import { executeFetch } from "@/lib/execute-fetch";
-// import { getCacheConfig } from '@/core/utils/get-cache-config';
 
 import { productRevalidate } from "../constants/revalidate";
 import { PriceHistoryDataType, ProductTypes } from "../types/product.types";

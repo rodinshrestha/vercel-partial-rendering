@@ -1,4 +1,9 @@
+// import { Suspense } from "react";
+
+import { Suspense } from "react";
+
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import { PageProps } from "@/core/types/page-props.types";
 import { getMetaData } from "@/core/utils/format";
@@ -11,6 +16,10 @@ import {
   pluckProductVaraint,
 } from "@/product/utils/get-product-group-by-nature";
 import { GROUP_BY_ZERO_PARENT_NOT_VISIBLE } from "@/product/constants/product.constant";
+
+// import SsrPage from "./ssr";
+
+const SsrPage = dynamic(() => import("./ssr"));
 
 export async function generateStaticParams() {
   return [];
@@ -61,7 +70,11 @@ const Page = async ({ params }: PageProps<"slug">) => {
       pluckVariantDetailsFromSKU={pluckVariantDetailsFromSKU}
       //Product and variant slug
       productWithSlug={slug as any}
-    />
+    >
+      <Suspense fallback={<p>Loading.....</p>}>
+        <SsrPage />
+      </Suspense>
+    </Product>
   );
 };
 

@@ -1,7 +1,3 @@
-// @ts-ignore
-
-/** @type {import('next').NextConfig} */
-
 const imagesRemotePatterns = JSON.parse(
   process.env.NEXT_PUBLIC_IMAGES_REMOTE_PATTERNS
 );
@@ -15,12 +11,13 @@ const convertPatternsToObjects = (patterns) => {
     };
   });
 };
-const cacheHandlerPath = new URL("./cache-handler.mjs", import.meta.url)
-  .pathname;
 
 const nextConfig = {
   compiler: {
     styledComponents: true,
+  },
+  experimental: {
+    ppr: true,
   },
   reactStrictMode: false,
   images: {

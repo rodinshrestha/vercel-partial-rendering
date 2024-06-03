@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,20 +22,52 @@
       }
     ],
     "paths": {
-      "@/auth/*": ["./src/modules/auth/*"],
-      "@/core/*": ["./src/modules/core/*"],
-      "@/cart/*": ["./src/modules/cart/*"],
-      "@/checkout/*": ["./src/modules/checkout/*"],
-      "@/builder/*": ["./src/modules/builder/*"],
-      "@/product/*": ["./src/modules/product/*"],
-      "@/wishlist/*": ["./src/modules/wishlist/*"],
-      "@/search/*": ["./src/modules/search/*"],
-      "@/category/*": ["./src/modules/category/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/order/*": ["./src/modules/order/*"],
-      "@/*": ["./src/*"]
-    }
+      "@/auth/*": [
+        "./src/modules/auth/*"
+      ],
+      "@/core/*": [
+        "./src/modules/core/*"
+      ],
+      "@/cart/*": [
+        "./src/modules/cart/*"
+      ],
+      "@/checkout/*": [
+        "./src/modules/checkout/*"
+      ],
+      "@/builder/*": [
+        "./src/modules/builder/*"
+      ],
+      "@/product/*": [
+        "./src/modules/product/*"
+      ],
+      "@/wishlist/*": [
+        "./src/modules/wishlist/*"
+      ],
+      "@/search/*": [
+        "./src/modules/search/*"
+      ],
+      "@/category/*": [
+        "./src/modules/category/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/order/*": [
+        "./src/modules/order/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

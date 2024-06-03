@@ -1,46 +1,47 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import clsx from 'clsx';
+import clsx from "clsx";
 
 import {
   ChangeAbleValueType,
   ProductTypes,
   VariationProductDetails,
-} from '@/product/types/product.types';
-import { StyledDiv, StyledContentWrap } from '@/product/page/style';
-import { Container } from '@/core/components/Grid/Container';
-import { Row } from '@/core/components/Grid/Row';
-import { Col } from '@/core/components/Grid/Col';
-import ProductBreadCrumb from '@/product/components/Product/ProductBreadCrumb';
-import { isConfigurableProducts } from '@/product/utils/is-configurable-products';
-import useMediaQuery from '@/core/hooks/useMediaQuery';
-import { breakPoints } from '@/theme/breakPoints';
-import ProductTitle from '@/product/components/Product/ProductTitle';
-import ProductImageGallery from '@/product/components/Product/ProductImageGallery';
-import ProductStockStatus from '@/product/components/Product/ProductStockStatus';
-import { SelectedProductVariants } from '@/product/types/selected-product-varaints-state.types';
-import { getCurrentProductVariants } from '@/product/utils/get-current-product-variants';
-import { getProductVariationsGroupBy } from '@/product/utils/get-product-group-by';
-import { initializeProductId } from '@/product/utils/initialize-product-id';
-import ProductVariantList from '@/product/components/Product/ProductVariantList';
-import ProductCTA from '@/product/components/Product/ProductCTA';
-import ProductAdditionalDetails from '@/product/components/ProductAdditionalDetails';
-import ProductPrice from '@/product/components/Product/ProductPrice/ProductPrice';
-import AuthCheckModal from '@/auth/components/AuthModal';
-import getSortVariants from '@/product/utils/get-variant-sorting';
-import useHeaders from '@/core/hooks/useHeaders';
+} from "@/product/types/product.types";
+import { StyledDiv, StyledContentWrap } from "@/product/page/style";
+import { Container } from "@/core/components/Grid/Container";
+import { Row } from "@/core/components/Grid/Row";
+import { Col } from "@/core/components/Grid/Col";
+import ProductBreadCrumb from "@/product/components/Product/ProductBreadCrumb";
+import { isConfigurableProducts } from "@/product/utils/is-configurable-products";
+import useMediaQuery from "@/core/hooks/useMediaQuery";
+import { breakPoints } from "@/theme/breakPoints";
+import ProductTitle from "@/product/components/Product/ProductTitle";
+import ProductImageGallery from "@/product/components/Product/ProductImageGallery";
+import ProductStockStatus from "@/product/components/Product/ProductStockStatus";
+import { SelectedProductVariants } from "@/product/types/selected-product-varaints-state.types";
+import { getCurrentProductVariants } from "@/product/utils/get-current-product-variants";
+import { getProductVariationsGroupBy } from "@/product/utils/get-product-group-by";
+import { initializeProductId } from "@/product/utils/initialize-product-id";
+import ProductVariantList from "@/product/components/Product/ProductVariantList";
+import ProductCTA from "@/product/components/Product/ProductCTA";
+import ProductAdditionalDetails from "@/product/components/ProductAdditionalDetails";
+import ProductPrice from "@/product/components/Product/ProductPrice/ProductPrice";
+import AuthCheckModal from "@/auth/components/AuthModal";
+import getSortVariants from "@/product/utils/get-variant-sorting";
+import useHeaders from "@/core/hooks/useHeaders";
 
-import { getSelectedVariantFromSKU } from '../utils/get-selected-variant-from-sku';
-import { fetchProductAdditionalData } from '../services/product-additional-service';
-import { showConfigurableProductError } from '../utils/show-error-product';
-import ProductWishlist from '../components/ProductWishlist';
+import { getSelectedVariantFromSKU } from "../utils/get-selected-variant-from-sku";
+import { fetchProductAdditionalData } from "../services/product-additional-service";
+import { showConfigurableProductError } from "../utils/show-error-product";
+import ProductWishlist from "../components/ProductWishlist";
 
 type Props = {
   productData: ProductTypes;
   slug: string;
   pluckVariantDetailsFromSKU: VariationProductDetails | null;
   productWithSlug: Array<string>;
+  children: React.ReactNode;
 };
 
 const Product = ({
@@ -48,6 +49,7 @@ const Product = ({
   slug,
   pluckVariantDetailsFromSKU,
   productWithSlug,
+  children,
 }: Props) => {
   const isConfigurableProduct = isConfigurableProducts(productData);
   const isTablet = useMediaQuery(breakPoints.tab);
@@ -61,8 +63,8 @@ const Product = ({
   const [minimumQty, setMinimumQuantity] = React.useState<number>(1);
   const [changeAbleValue, setChangeAbleValue] =
     React.useState<ChangeAbleValueType>({
-      price: '',
-      discountPrice: '',
+      price: "",
+      discountPrice: "",
       qty: null,
       memberPrice: null,
       productName: null,
@@ -135,7 +137,7 @@ const Product = ({
     const variantId =
       selectedProductVariants.selectedAttributes?.at(-1)?.id ||
       selectedVaraintsFromSKU?.id ||
-      '';
+      "";
 
     if (!variantId) return;
 
@@ -197,12 +199,12 @@ const Product = ({
 
   return (
     <>
-      <StyledDiv className={clsx('pb-90')}>
+      <StyledDiv className={clsx("pb-90")}>
         <div className="product-details-wrapper">
           <Container fluid>
             <Row
               className="flex-row-reverse"
-              style={{ zIndex: '1', position: 'relative', rowGap: '15px' }}
+              style={{ zIndex: "1", position: "relative", rowGap: "15px" }}
             >
               <Col lg={7} xl={8} className="mr-auto">
                 <div className="product-img-inner-wrapper">
@@ -288,6 +290,7 @@ const Product = ({
                       selectedGroupBy={selectedGroupBy}
                       minimumQty={minimumQty}
                     />
+                    {children}
                     <ProductStockStatus
                       productData={productData}
                       productId={productId}
