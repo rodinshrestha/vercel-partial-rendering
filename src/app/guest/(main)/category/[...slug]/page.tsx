@@ -10,6 +10,8 @@ import { PageProps } from "@/core/types/page-props.types";
 import { makeStaticHeaders } from "@/core/utils/static-header";
 import { executeFetch } from "@/lib/execute-fetch";
 
+import CategoryProduct from "./category-product";
+
 export async function generateStaticParams() {
   return [];
 }
@@ -43,7 +45,11 @@ const Page = async ({ params, searchParams }: PageProps<"slug">) => {
       searchParams={searchParams}
       categorySlug={slug as string}
     >
-      <p>Product</p>
+      <CategoryProduct
+        categoryData={categoryData}
+        searchParams={searchParams}
+        slug={slug as any}
+      />
     </Category>
   );
 };
