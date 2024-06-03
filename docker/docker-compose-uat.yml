@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  jacson-uat:
+  jacson-uat-static-test:
     container_name: jacson-uat-static-test
     build:
       context: /root/storefront-static-test/
