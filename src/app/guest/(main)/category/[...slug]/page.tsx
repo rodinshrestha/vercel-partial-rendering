@@ -1,5 +1,7 @@
 // import { notFound } from "next/navigation";
 
+import { Suspense } from "react";
+
 import { notFound } from "next/navigation";
 
 import { categoryRevalidate } from "@/category/constants/revalidate";
@@ -45,11 +47,13 @@ const Page = async ({ params, searchParams }: PageProps<"slug">) => {
       searchParams={searchParams}
       categorySlug={slug as string}
     >
-      <CategoryProduct
-        categoryData={categoryData}
-        searchParams={searchParams}
-        slug={slug as any}
-      />
+      <Suspense fallback={<p>Product loading....</p>}>
+        <CategoryProduct
+          categoryData={categoryData}
+          searchParams={searchParams}
+          slug={slug as any}
+        />
+      </Suspense>
     </Category>
   );
 };
