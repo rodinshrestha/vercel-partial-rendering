@@ -7,12 +7,6 @@ import Builder from "@/builder/index";
 import { makeStaticHeaders } from "@/core/utils/static-header";
 import { getFavIcon } from "@/core/utils/get-favicon";
 
-export const revalidate = 600;
-
-export async function generateStaticParams() {
-  return [];
-}
-
 export async function generateMetadata() {
   const headers = makeStaticHeaders();
 

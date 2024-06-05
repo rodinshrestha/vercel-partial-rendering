@@ -1,30 +1,29 @@
-import React from 'react';
+import React from "react";
 
-import styled, { css } from 'styled-components';
-import { rem } from 'polished';
+import styled, { css } from "styled-components";
+import { rem } from "polished";
 
-import ImageWithFallback from '@/core/components/ImageWithFallback';
-import Link from '@/core/components/Link';
-import { linkGenerator } from '@/product/utils/link-generator';
-import Overlay from '@/core/components/Overlay';
+import ImageWithFallback from "@/core/components/ImageWithFallback";
+import Link from "@/core/components/Link";
+import { linkGenerator } from "@/product/utils/link-generator";
+import Overlay from "@/core/components/Overlay";
 
-import { CategoryImageType } from '../category-image-block.type';
+import { CategoryImageType } from "../category-image-block.type";
 
 const CategoryImage = ({ item }: { item: CategoryImageType }) => {
   const { src, title, link } = item;
   const href = linkGenerator(link);
-  console.log(href !== '#', '@@');
   return (
     <StyledDiv className="category-image-block image-item">
       <Overlay opacity={0.85} zIndex={2} />
-      {href && href !== '#' && (
+      {href && href !== "#" && (
         <Link
           className="whole-link"
           href={linkGenerator(link)}
           newTab={Boolean(link.newTab)}
         />
       )}
-      {title && href && href !== '#' ? (
+      {title && href && href !== "#" ? (
         <Link
           className="whole-link"
           href={linkGenerator(link)}
@@ -42,7 +41,7 @@ const CategoryImage = ({ item }: { item: CategoryImageType }) => {
 
       {src && (
         <ImageWithFallback
-          src={src || '#'}
+          src={src || "#"}
           alt="text-image"
           className="object-cover"
           fill

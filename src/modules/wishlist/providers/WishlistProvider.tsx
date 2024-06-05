@@ -89,8 +89,6 @@ const WishlistProvider = ({ children }: Props) => {
 
   const { clientHeaders } = useHeaders();
 
-  console.log(clientHeaders, "@@@");
-
   const getFavourite = React.useCallback(() => {
     return new Promise((resolve, reject) => {
       if (

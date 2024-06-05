@@ -8,6 +8,10 @@ import { getChannels } from "@/core/services/channel-store-service";
 import { makeStaticHeaders } from "@/core/utils/static-header";
 import HeaderAuthSection from "@/core/components/Header/ssrcomponents/HeaderAuthSection";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 const HeaderComponent = async () => {
   const headers = makeStaticHeaders();
 
@@ -18,7 +22,7 @@ const HeaderComponent = async () => {
 
   return (
     <Header {...{ data: navigation.data, channelList: channels.data }}>
-      <Suspense fallback={null}>
+      <Suspense fallback={<p>loading..</p>}>
         <HeaderAuthSection />
       </Suspense>
     </Header>
@@ -46,7 +50,9 @@ const FooterComponent = async () => {
 const MainLayout = ({ children }: PropsWithChildren<PageProps>) => {
   return (
     <>
-      <HeaderComponent />
+      <Suspense>
+        <HeaderComponent />
+      </Suspense>
       <main>{children}</main>
       <FooterComponent />
     </>

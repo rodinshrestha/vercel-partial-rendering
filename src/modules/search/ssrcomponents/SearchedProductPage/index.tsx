@@ -9,7 +9,7 @@ import {
 import { makeHeaders } from "@/core/utils/header";
 import { fetchProfile } from "@/auth/services/auth-service";
 
-const SearchServerComponent = async ({
+const SearchProductPage = async ({
   searchParams,
 }: Pick<PageProps, "searchParams">) => {
   const { q } = searchParams;
@@ -31,4 +31,4 @@ const SearchServerComponent = async ({
   );
 };
 
-export default SearchServerComponent;
+export default SearchProductPage;

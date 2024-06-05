@@ -3,12 +3,7 @@ import React, { Suspense } from "react";
 import { PageProps } from "@/core/types/page-props.types";
 import SearchSuspenseLoader from "@/search/components/SearchSuspenseLoader";
 import SearchHeader from "@/search/components/SearchHeader";
-
-import SearchServerComponent from ".";
-
-export async function generateStaticParams() {
-  return [];
-}
+import SearchProductPage from "@/search/ssrcomponents/SearchedProductPage";
 
 export async function generateMetadata() {
   return {
@@ -20,12 +15,11 @@ export async function generateMetadata() {
 const Search = async ({ searchParams }: PageProps) => {
   return (
     <>
-      <SearchHeader searchParams={searchParams} />
-      <Suspense
-        key={JSON.stringify({ ...searchParams })}
-        fallback={<SearchSuspenseLoader />}
-      >
-        <SearchServerComponent searchParams={searchParams} />;
+      <Suspense fallback={<p>Search title loading</p>}>
+        <SearchHeader searchParams={searchParams} />
+      </Suspense>
+      <Suspense fallback={<SearchSuspenseLoader />}>
+        <SearchProductPage searchParams={searchParams} />;
       </Suspense>
     </>
   );

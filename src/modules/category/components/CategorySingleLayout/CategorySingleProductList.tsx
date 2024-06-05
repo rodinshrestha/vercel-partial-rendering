@@ -1,21 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
-import styled from 'styled-components';
-import { css } from 'styled-components';
-import { rem } from 'polished';
+import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import styled from "styled-components";
+import { css } from "styled-components";
+import { rem } from "polished";
 
-import { CategoryProductTypes } from '@/category/types/category.types';
-import { ProductTypes } from '@/product/types/product.types';
-import ProductItem from '@/product/components/Card/ProductItem';
+import { CategoryProductTypes } from "@/category/types/category.types";
+import { ProductTypes } from "@/product/types/product.types";
+import ProductItem from "@/product/components/Card/ProductItem";
+import { ProfileUser } from "@/auth/types/user.types";
 
 const CategoryProductList = ({
   categoryProducts,
   className,
+  user,
 }: {
   categoryProducts: CategoryProductTypes | null;
   className?: string;
+  user: ProfileUser | null;
 }) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
 
@@ -27,10 +30,10 @@ const CategoryProductList = ({
         const data = {
           configurable_attributes: product?.configurable_attributes,
           base_image: {
-            url: product?.images || product?.base_image?.url || '',
+            url: product?.images || product?.base_image?.url || "",
           },
           rollover_image: {
-            url: product?.rollover_image?.url || '',
+            url: product?.rollover_image?.url || "",
           },
           url_key: product?.url_key,
           name: product?.name,
@@ -72,7 +75,7 @@ const CategoryProductList = ({
               viewport={{ once: true, amount: 0.2 }}
               className={clsx(`product-grid-item `)}
             >
-              <ProductItem product={data} />
+              <ProductItem product={data} user={user} />
             </motion.div>
           </AnimatePresence>
         );

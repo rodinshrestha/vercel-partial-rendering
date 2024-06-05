@@ -9,11 +9,9 @@ import {
   FilterAttributeType,
   SelectedFilterAttributeType,
 } from "@/category/types/category.types";
-// import useCategory from '@/category/hooks/useCategory';
 import { Container } from "@/core/components/Grid/Container";
 import { Row } from "@/core/components/Grid/Row";
 import { Col } from "@/core/components/Grid/Col";
-import Loader from "@/core/components/Loader";
 import CategoryProductList from "@/category/components/CategorySingleLayout/CategorySingleProductList";
 import { initializeCategoryFilter } from "@/category/utils/category-filter";
 import { CustomColWrap } from "@/search/components/SearchPage/style";
@@ -22,8 +20,9 @@ import Pagination from "@/core/components/Pagination";
 import { CATEGORY_PAGINATION_LIMIT } from "@/category/constants/category-pagation-limit";
 import useTranslations from "@/core/hooks/useTranslations";
 import NoProductFound from "@/core/components/NoProductFound";
+import { ProfileUser } from "@/auth/types/user.types";
 
-import { LoaderContainer, StyledSection } from "./style";
+import { StyledSection } from "./style";
 
 type Props = {
   data: CategoryDataTypes;
@@ -31,6 +30,7 @@ type Props = {
   searchParams: { [key: string]: string };
   loader: boolean;
   categoryProducts: CategoryProductTypes | null;
+  user: ProfileUser | null;
 };
 
 const CategorySingleLayout = ({
@@ -39,6 +39,7 @@ const CategorySingleLayout = ({
   searchParams,
   loader,
   categoryProducts,
+  user,
 }: Props) => {
   const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
   const [selectedFilterAttribute, setSelectedFilterAttributes] =
@@ -77,31 +78,24 @@ const CategorySingleLayout = ({
             <CustomColWrap
               className={clsx({ "custom-col-wrap ml-auto": isFilterOpen })}
             >
-              {loader ? (
-                <LoaderContainer>
-                  <Loader type="spinner" color="primary" />
-                </LoaderContainer>
-              ) : (
-                <>
-                  <CategoryProductList
-                    className={clsx({ "custom-col": isFilterOpen })}
-                    categoryProducts={categoryProducts}
-                  />
-                  {categoryProducts?.data?.length ? (
-                    <Pagination
-                      paginationName={_t("products", "Products")}
-                      searchParams={searchParams}
-                      length={categoryProducts?.last_page}
-                      showPerPageData={categoryProducts.data.length}
-                      totalData={categoryProducts?.total}
-                      paginationLimit={CATEGORY_PAGINATION_LIMIT}
-                      query="page"
-                      loader={loader}
-                      scrollToSectionId="#category_list_id"
-                    />
-                  ) : null}
-                </>
-              )}
+              <CategoryProductList
+                className={clsx({ "custom-col": isFilterOpen })}
+                categoryProducts={categoryProducts}
+                user={user}
+              />
+              {categoryProducts?.data?.length ? (
+                <Pagination
+                  paginationName={_t("products", "Products")}
+                  searchParams={searchParams}
+                  length={categoryProducts?.last_page}
+                  showPerPageData={categoryProducts.data.length}
+                  totalData={categoryProducts?.total}
+                  paginationLimit={CATEGORY_PAGINATION_LIMIT}
+                  query="page"
+                  loader={loader}
+                  scrollToSectionId="#category_list_id"
+                />
+              ) : null}
             </CustomColWrap>
             {!categoryProducts?.data?.length && !loader && <NoProductFound />}
           </Col>

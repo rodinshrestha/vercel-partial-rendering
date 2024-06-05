@@ -1,6 +1,6 @@
 import "server-only";
 
-import React, { Suspense } from "react";
+import React from "react";
 
 import {
   ProductWithWithoutSliderType,
@@ -28,14 +28,12 @@ const ProductSliderBuilder = async ({
   const user = await fetchProfile();
 
   return (
-    <Suspense fallback={null}>
-      <ProductWithSectionTitle
-        sectionAttributes={sectionAttributes(section_settings)}
-        rowAttributes={rowAttributes(row_settings)}
-        {...productHelpers(module as ProductWithWithoutSliderType)}
-        user={user?.data || null}
-      />
-    </Suspense>
+    <ProductWithSectionTitle
+      sectionAttributes={sectionAttributes(section_settings)}
+      rowAttributes={rowAttributes(row_settings)}
+      {...productHelpers(module as ProductWithWithoutSliderType)}
+      user={user?.data || null}
+    />
   );
 };
 

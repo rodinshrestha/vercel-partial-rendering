@@ -1,3 +1,7 @@
+import { Suspense } from "react";
+
+import dynamic from "next/dynamic";
+
 import {
   ComponentIdentifiers,
   ContentBlockType,
@@ -17,30 +21,30 @@ import { categoryCarousel } from "./components/CategoryCarousel/category-helper"
 import textImageHelper from "./components/TextImageBlock/text-image-helper";
 import { BannerBackgroundMedia } from "./components/BannerBuilder/components/BannerBackgroundMedia";
 import clubFormHelper from "./components/CustomerClubFormBuilder/club-form-helper";
-import BackgroundContentPage from "./components/BackgroundContent";
-import ContentBlockBuilder from "./components/ContentBlockBuilder";
-import CategoryCarousel from "./components/CategoryCarousel";
-import TextImageBlock from "./components/TextImageBlock";
-import CustomerClubForm from "./components/CustomerClubFormBuilder";
-import CategoryImageBlock from "./components/CategoryImageBlock";
-import BannerBuilder from "./components/BannerBuilder";
+// import BackgroundContentPage from "./components/BackgroundContent";
+// import ContentBlockBuilder from "./components/ContentBlockBuilder";
+// import CategoryCarousel from "./components/CategoryCarousel";
+// import TextImageBlock from "./components/TextImageBlock";
+// import CustomerClubForm from "./components/CustomerClubFormBuilder";
+// import CategoryImageBlock from "./components/CategoryImageBlock";
+// import BannerBuilder from "./components/BannerBuilder";
 import ProductSliderBuilder from "./components/ProductWithSectionTitle/ssrcomponents/ProductSliderBuilder";
 
-// const BackgroundContentPage = dynamic(
-//   () => import('./components/BackgroundContent')
-// );
-// const BannerBuilder = dynamic(() => import('./components/BannerBuilder'));
-// const CategoryCarousel = dynamic(() => import('./components/CategoryCarousel'));
-// const TextImageBlock = dynamic(() => import('./components/TextImageBlock'));
-// const ContentBlockBuilder = dynamic(
-//   () => import('./components/ContentBlockBuilder')
-// );
-// const CustomerClubForm = dynamic(
-//   () => import('./components/CustomerClubFormBuilder')
-// );
-// const CategoryImageBlock = dynamic(
-//   () => import('./components/CategoryImageBlock')
-// );
+const BackgroundContentPage = dynamic(
+  () => import("./components/BackgroundContent")
+);
+const BannerBuilder = dynamic(() => import("./components/BannerBuilder"));
+const CategoryCarousel = dynamic(() => import("./components/CategoryCarousel"));
+const TextImageBlock = dynamic(() => import("./components/TextImageBlock"));
+const ContentBlockBuilder = dynamic(
+  () => import("./components/ContentBlockBuilder")
+);
+const CustomerClubForm = dynamic(
+  () => import("./components/CustomerClubFormBuilder")
+);
+const CategoryImageBlock = dynamic(
+  () => import("./components/CategoryImageBlock")
+);
 
 type Props = {
   component: BuilderComponentTypes;
@@ -133,11 +137,13 @@ const Builder = ({ component }: Props) => {
 
     case ComponentIdentifiers.PRODUCT_WITH_WITHOUT_SLIDER: {
       return (
-        <ProductSliderBuilder
-          section_settings={section_settings}
-          row_settings={row_settings}
-          module={module}
-        />
+        <Suspense fallback={<p>Product slider loader</p>}>
+          <ProductSliderBuilder
+            section_settings={section_settings}
+            row_settings={row_settings}
+            module={module}
+          />
+        </Suspense>
       );
     }
 

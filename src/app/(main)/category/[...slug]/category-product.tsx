@@ -7,6 +7,7 @@ import {
 import CategorySingleLayout from "@/category/components/CategorySingleLayout/CategorySingleLayout";
 import { CategoryDataTypes } from "@/category/types/category.types";
 import { makeHeaders } from "@/core/utils/header";
+import { fetchProfile } from "@/auth/services/auth-service";
 
 type Props = {
   slug: string;
@@ -16,9 +17,10 @@ type Props = {
 const CategoryProduct = async ({ slug, searchParams, categoryData }: Props) => {
   const headers = makeHeaders();
 
-  const [categoryFilter, categoryProduct] = await Promise.all([
+  const [categoryFilter, categoryProduct, user] = await Promise.all([
     getCategoryFilters(slug, headers),
     getCategoryProducts(slug, headers, searchParams),
+    fetchProfile(),
   ]).then((res) => res);
 
   return (
@@ -28,6 +30,7 @@ const CategoryProduct = async ({ slug, searchParams, categoryData }: Props) => {
       searchParams={searchParams}
       loader={false}
       categoryProducts={categoryProduct?.data?.products || null}
+      user={user?.data || null}
     />
   );
 };

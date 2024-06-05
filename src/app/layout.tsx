@@ -32,9 +32,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { channel = "en", store } = makeChannelStore() || {};
+  const initializeHeaders = makeChannelStore() || {};
 
-  const initializeHeaders = { channel, store };
+  const { channel = "en", store } = initializeHeaders;
 
   const [data, translations] = await Promise.all([
     getResolver(makeStaticHeaders()),
