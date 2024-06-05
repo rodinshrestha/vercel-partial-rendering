@@ -1,21 +1,21 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import { useAuth } from '@/auth/hooks/useAuth';
-import useTranslations from '@/core/hooks/useTranslations';
-import { setCallBackURL } from '@/core/utils/url';
+import useTranslations from "@/core/hooks/useTranslations";
+import { setCallBackURL } from "@/core/utils/url";
+import { ProfileUser } from "@/auth/types/user.types";
 
-import Link from '../../Link';
-import { IconUser } from '../../Icons';
+import Link from "../../Link";
+import { IconUser } from "../../Icons";
 
 type Props = {
   children?: React.ReactNode;
+  user: ProfileUser | null;
 };
 
-const LoginIcon = ({ children }: Props) => {
-  const { user } = useAuth();
+const LoginIcon = ({ children, user }: Props) => {
   const { _t } = useTranslations();
 
   if (user) {
@@ -26,7 +26,7 @@ const LoginIcon = ({ children }: Props) => {
         ) : (
           <>
             <span className="user user-name icon">
-              {_t('my_account', 'My Account')}
+              {_t("my_account", "My Account")}
             </span>
             <IconUser className="menu-svg" size={16} />
           </>
@@ -38,7 +38,7 @@ const LoginIcon = ({ children }: Props) => {
   return (
     <div className="log-btn">
       <Link href="/login" onClick={() => setCallBackURL()}>
-        <span className="user-name">{_t('log_in', 'Log In')}</span>
+        <span className="user-name">{_t("log_in", "Log In")}</span>
         <IconUser className="menu-svg" size={16} />
       </Link>
     </div>

@@ -1,3 +1,5 @@
+import "server-only";
+
 // Get auth user
 import { cache } from "react";
 

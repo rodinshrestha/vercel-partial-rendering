@@ -1,25 +1,25 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import type { ProductTypes } from '@/product/types/product.types';
-import useHeaders from '@/core/hooks/useHeaders';
-import toastAlert from '@/core/utils/toast';
+import type { ProductTypes } from "@/product/types/product.types";
+import useHeaders from "@/core/hooks/useHeaders";
+import toastAlert from "@/core/utils/toast";
 
 import type {
   WishlistItemListType,
   WishlistType,
-} from '../types/wishlist.types';
-import { shouldFetchWishlist } from '../utils/should-fetch-wishlist';
+} from "../types/wishlist.types";
+import { shouldFetchWishlist } from "../utils/should-fetch-wishlist";
 import {
   getWishlistToken,
   removeWishListToken,
   setWishlistToken,
-} from '../utils/wishlist-cookie';
+} from "../utils/wishlist-cookie";
 import {
   addToFavourite,
   clearAllWishList,
   getWishlist,
-} from '../services/wishlist-service';
+} from "../services/wishlist-service";
 
 type ContextType = {
   isMiniWishlistDrawerOpen: boolean;
@@ -85,7 +85,7 @@ const WishlistProvider = ({ children }: Props) => {
     Array<WishlistItemListType>
   >([]);
   const [wishlist, setWishlist] = React.useState<WishlistType | null>(null);
-  const [wishlistLoader, setWishlistLoader] = React.useState(true);
+  const [wishlistLoader, setWishlistLoader] = React.useState(false);
 
   const { clientHeaders } = useHeaders();
 
@@ -93,10 +93,11 @@ const WishlistProvider = ({ children }: Props) => {
     return new Promise((resolve, reject) => {
       if (
         !shouldFetchWishlist({
-          authToken: clientHeaders.Authorization || '',
+          authToken: clientHeaders.Authorization || "",
         })
-      )
+      ) {
         return;
+      }
 
       setWishlistLoader(true);
       getWishlist(clientHeaders)
@@ -105,7 +106,7 @@ const WishlistProvider = ({ children }: Props) => {
           resolve(res.data.data);
         })
         .catch((err) => {
-          toastAlert(err, 'error');
+          toastAlert(err, "error");
           reject(err);
         })
         .finally(() => {
@@ -122,7 +123,7 @@ const WishlistProvider = ({ children }: Props) => {
     (data: ProductTypes, isRemove = false) => {
       return new Promise((resolve, reject) => {
         if (!data) {
-          throw new Error('Product id not found');
+          throw new Error("Product id not found");
         }
 
         const WISHLIST_TOKEN = getWishlistToken();
@@ -162,7 +163,7 @@ const WishlistProvider = ({ children }: Props) => {
               setRecentlySelectedProduct((prev) =>
                 prev.filter((item) => item.product_id !== data.id)
               );
-              resolve('success');
+              resolve("success");
             } else {
               getFavourite()
                 .then((res) => {
@@ -177,21 +178,21 @@ const WishlistProvider = ({ children }: Props) => {
                     }
                     return [...prev, currentSelected];
                   });
-                  resolve('success');
+                  resolve("success");
                 })
                 .catch((err) => {
-                  toastAlert(err, 'error');
-                  reject('error');
+                  toastAlert(err, "error");
+                  reject("error");
                 });
             }
           })
           .catch((err) => {
             if (err?.response?.status === 422) {
-              toastAlert('Product not found', 'custom-error');
+              toastAlert("Product not found", "custom-error");
             }
             setWishlistLoader(false);
-            toastAlert(err, 'error');
-            reject('failed');
+            toastAlert(err, "error");
+            reject("failed");
           });
       });
     },
@@ -203,17 +204,17 @@ const WishlistProvider = ({ children }: Props) => {
       const WISHLIST_TOKEN = getWishlistToken();
 
       if (!WISHLIST_TOKEN) {
-        throw new Error('Wishlist token not found in cookie');
+        throw new Error("Wishlist token not found in cookie");
       }
       clearAllWishList(clientHeaders)
         .then(() => {
           removeWishListToken();
           setWishlist(null);
-          resolve('success');
+          resolve("success");
         })
         .catch((err) => {
-          toastAlert(err, 'error');
-          reject('failed');
+          toastAlert(err, "error");
+          reject("failed");
         });
     });
   };

@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { notFound } from "next/navigation";
 
 import { fetchPage } from "@/core/services/page-services";
@@ -7,14 +9,8 @@ import Builder from "@/builder/index";
 import { makeStaticHeaders } from "@/core/utils/static-header";
 import { getFavIcon } from "@/core/utils/get-favicon";
 
-export async function generateStaticParams() {
-  return [];
-}
-
 export async function generateMetadata() {
   const headers = makeStaticHeaders();
-
-  console.log(headers);
 
   const resolver = await getResolver(headers);
   const { home } = resolver.data.pages || {};
@@ -47,14 +43,9 @@ const Home = async () => {
   const { data } = await fetchPage(home, headers);
 
   return data.components.map((component, index) => (
-    <>
-      <Builder
-        component={component}
-        key={index}
-        // params={params}
-        // searchParams={searchParams}
-      />
-    </>
+    <Suspense key={index}>
+      <Builder component={component} key={index} />
+    </Suspense>
   ));
 };
 export default Home;

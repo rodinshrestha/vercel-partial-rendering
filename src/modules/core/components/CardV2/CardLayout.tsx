@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import styled, { css } from 'styled-components';
-import { rem } from 'polished';
-import { SwiperSlide } from 'swiper/react';
-import clsx from 'clsx';
+import styled, { css } from "styled-components";
+import { rem } from "polished";
+import { SwiperSlide } from "swiper/react";
+import clsx from "clsx";
 
-import { CategoryType } from '@/builder/components/CategoryCarousel/category-type';
-import { breakPoints } from '@/theme/breakPoints';
-import useMediaQuery from '@/core/hooks/useMediaQuery';
-import { categoryData } from '@/builder/components/CategoryCarousel/category-helper';
+import { CategoryType } from "@/builder/components/CategoryCarousel/category-type";
+import { breakPoints } from "@/theme/breakPoints";
+import useMediaQuery from "@/core/hooks/useMediaQuery";
+import { categoryData } from "@/builder/components/CategoryCarousel/category-helper";
 
-import { StyledTitle } from '../ContentBlock';
-import Swiper from '../Swiper';
+import { StyledTitle } from "../ContentBlock";
+import Swiper from "../Swiper";
 
-import CardItem from './CardItem';
+import CardItem from "./CardItem";
 
-type CardHeightTypes = 'large' | 'medium' | 'small';
+type CardHeightTypes = "large" | "medium" | "small";
 
 export type CardLayoutType = {
   data: Array<CategoryType>;
@@ -25,7 +25,7 @@ export type CardLayoutType = {
 };
 
 const CardLayout = ({
-  cardHeight = 'small',
+  cardHeight = "small",
   data,
   sectionTitle,
   className,
@@ -34,7 +34,7 @@ const CardLayout = ({
   if (!data) return;
 
   return (
-    <StyledLayout className={clsx('card-layout')}>
+    <StyledLayout className="card-layout">
       {sectionTitle && (
         <div className="title  mb-30">
           <StyledTitle className="text-center section-title">
@@ -46,14 +46,14 @@ const CardLayout = ({
       {!isTab ? (
         <LayoutWrapper
           className={clsx(className, {
-            'custom-card-item': cardHeight === 'small',
+            "custom-card-item": cardHeight === "small",
           })}
         >
           {data.map((el, index) => (
             <CardItem
               cardHeight={cardHeight}
               className={clsx({
-                'category-card-item': cardHeight === 'small',
+                "category-card-item": cardHeight === "small",
               })}
               key={index}
               {...categoryData(el)}

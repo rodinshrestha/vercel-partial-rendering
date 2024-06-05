@@ -7,7 +7,7 @@ import { getChannelStore } from "./get-channel-store";
 
 /**
  * Formats the channel & store
- * as the headers required by the backend
+ * as the headers required for every API request
  * @example
  * ```js
  * const headers = makeStaticHeaders({channel: "se", store: 'en})

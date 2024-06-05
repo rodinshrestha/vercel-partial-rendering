@@ -22,15 +22,13 @@ import NavMenu from "./components/NavMenu";
 import Hamburger from "./components/Hamburger";
 import MobileMenuDrawer from "./components/MobileMenuDrawer";
 
-const Header = ({
-  data,
-  channelList,
-}: {
+type Props = {
   data: NavigationType;
   channelList: ChannelsType;
-}) => {
-  // const [headerHeight, setHeaderHeight] = React.useState(119);
+  children: React.ReactNode;
+};
 
+const Header = ({ data, channelList, children }: Props) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const isTab = useMediaQuery(breakPoints.tablet);
 
@@ -65,7 +63,9 @@ const Header = ({
                 <RightMenu
                   onHandleSearch={setShowSearch}
                   channelList={channelList}
-                />
+                >
+                  {children}
+                </RightMenu>
               </div>
             </Col>
           </Row>

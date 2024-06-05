@@ -1,21 +1,21 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import clsx from 'clsx';
-import styled from 'styled-components';
-import { css } from 'styled-components';
+import clsx from "clsx";
+import styled from "styled-components";
+import { css } from "styled-components";
 
-import { SectionAttribute } from '@/builder/types/section.types';
-import { RowAttributes } from '@/builder/types/row.types';
-import { CardHeightTypes } from '@/core/components/ContentCard';
-import { removeNullFromObject } from '@/builder/utils/remove-null-from-object';
-import { Container } from '@/core/components/Grid/Container';
-import { Row } from '@/core/components/Grid/Row';
-import { Col } from '@/core/components/Grid/Col';
+import { SectionAttribute } from "@/builder/types/section.types";
+import { RowAttributes } from "@/builder/types/row.types";
+import { CardHeightTypes } from "@/core/components/ContentCard";
+import { removeNullFromObject } from "@/builder/utils/remove-null-from-object";
+import { Container } from "@/core/components/Grid/Container";
+import { Row } from "@/core/components/Grid/Row";
+import { Col } from "@/core/components/Grid/Col";
 // import CircularCardLayout from '@/core/components/Card/CircularCardLayout';
-import CardLayout from '@/core/components/CardV2/CardLayout';
+import CardLayout from "@/core/components/CardV2/CardLayout";
 
-import { CategoriesProps } from './category-type';
+import { CategoriesProps } from "./category-type";
 
 type CategoryType = {
   data: CategoriesProps;
@@ -32,11 +32,9 @@ const CategoryCarousel = ({
   sectionAttributes,
   rowAttributes,
   sectionTitle,
-  // cardHeight = 'small',
   backgroundContent,
   hasWave = true,
 }: CategoryType) => {
-  // const { content_layout } = data;
   const { className, containerType, id, ...restSectionAttribute } =
     sectionAttributes;
   const {
@@ -45,22 +43,22 @@ const CategoryCarousel = ({
     className: rowClassName,
     ...restRowAttribute
   } = rowAttributes;
-  const normal = containerType === 'normal';
+  const normal = containerType === "normal";
   return (
     <StyledSection
       style={{
         ...removeNullFromObject(restSectionAttribute),
       }}
-      className={clsx(className, 'pt-75', 'pb-75', 'category-wrapper')}
+      className={clsx(className, "pt-75", "pb-75", "category-wrapper")}
       id={id}
       $hasWave={hasWave}
     >
       {backgroundContent}
-      <Container fluid={!normal} className={clsx(gutterSpace && 'p-0')}>
+      <Container fluid={!normal} className={clsx(gutterSpace && "p-0")}>
         <Row
           noGutter={gutterSpace}
-          className={rowClassName || ''}
-          id={rowId || ''}
+          className={rowClassName || ""}
+          id={rowId || ""}
           style={{ ...removeNullFromObject(restRowAttribute) }}
         >
           <Col>

@@ -81,15 +81,12 @@ const FooterLanguageSelector = ({ channelList = [], className }: Props) => {
   return (
     <StyleWrapper className={className}>
       <SelectField
-        // label={_t('country', 'Country')}
         label="Country"
         name="channel"
         options={channelOpts}
-        // placeholder={_t('select_channel', 'Select Channel')}
         placeholder="Select Channel"
         value={selectedChannel}
         onChange={handleChannelChange}
-        // menuPlacement="top"
         classNamePrefix="country"
       />
     </StyleWrapper>

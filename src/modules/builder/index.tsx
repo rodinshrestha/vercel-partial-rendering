@@ -1,5 +1,3 @@
-import dynamic from 'next/dynamic';
-
 import {
   ComponentIdentifiers,
   ContentBlockType,
@@ -7,39 +5,42 @@ import {
   type BannerBuilderType,
   type BuilderComponentTypes,
   type CategoryCarouselType,
-  ProductWithWithoutSliderType,
   CategoryImageBlockContentType,
   ClubFormBlockType,
-} from './types/builder.types';
-import { rowAttributes } from './utils/row-settings-utils';
+} from "./types/builder.types";
+import { rowAttributes } from "./utils/row-settings-utils";
 import {
   pluckSectionBackgroundImage,
   sectionAttributes,
-} from './utils/section-settings-utils';
-import { categoryCarousel } from './components/CategoryCarousel/category-helper';
-import textImageHelper from './components/TextImageBlock/text-image-helper';
-import { productHelpers } from './components/ProductWithSectionTitle/product.helpers';
-import { BannerBackgroundMedia } from './components/BannerBuilder/components/BannerBackgroundMedia';
-import clubFormHelper from './components/CustomerClubFormBuilder/club-form-helper';
+} from "./utils/section-settings-utils";
+import { categoryCarousel } from "./components/CategoryCarousel/category-helper";
+import textImageHelper from "./components/TextImageBlock/text-image-helper";
+import { BannerBackgroundMedia } from "./components/BannerBuilder/components/BannerBackgroundMedia";
+import clubFormHelper from "./components/CustomerClubFormBuilder/club-form-helper";
+import BackgroundContentPage from "./components/BackgroundContent";
+import ContentBlockBuilder from "./components/ContentBlockBuilder";
+import CategoryCarousel from "./components/CategoryCarousel";
+import TextImageBlock from "./components/TextImageBlock";
+import CustomerClubForm from "./components/CustomerClubFormBuilder";
+import CategoryImageBlock from "./components/CategoryImageBlock";
+import BannerBuilder from "./components/BannerBuilder";
+import ProductSliderBuilder from "./components/ProductWithSectionTitle/ssrcomponents/ProductSliderBuilder";
 
-const BackgroundContentPage = dynamic(
-  () => import('./components/BackgroundContent')
-);
-const BannerBuilder = dynamic(() => import('./components/BannerBuilder'));
-const CategoryCarousel = dynamic(() => import('./components/CategoryCarousel'));
-const TextImageBlock = dynamic(() => import('./components/TextImageBlock'));
-const ContentBlockBuilder = dynamic(
-  () => import('./components/ContentBlockBuilder')
-);
-const ProductWithSectionTitle = dynamic(
-  () => import('./components/ProductWithSectionTitle')
-);
-const CustomerClubForm = dynamic(
-  () => import('./components/CustomerClubFormBuilder')
-);
-const CategoryImageBlock = dynamic(
-  () => import('./components/CategoryImageBlock')
-);
+// const BackgroundContentPage = dynamic(
+//   () => import('./components/BackgroundContent')
+// );
+// const BannerBuilder = dynamic(() => import('./components/BannerBuilder'));
+// const CategoryCarousel = dynamic(() => import('./components/CategoryCarousel'));
+// const TextImageBlock = dynamic(() => import('./components/TextImageBlock'));
+// const ContentBlockBuilder = dynamic(
+//   () => import('./components/ContentBlockBuilder')
+// );
+// const CustomerClubForm = dynamic(
+//   () => import('./components/CustomerClubFormBuilder')
+// );
+// const CategoryImageBlock = dynamic(
+//   () => import('./components/CategoryImageBlock')
+// );
 
 type Props = {
   component: BuilderComponentTypes;
@@ -132,10 +133,10 @@ const Builder = ({ component }: Props) => {
 
     case ComponentIdentifiers.PRODUCT_WITH_WITHOUT_SLIDER: {
       return (
-        <ProductWithSectionTitle
-          sectionAttributes={sectionAttributes(section_settings)}
-          rowAttributes={rowAttributes(row_settings)}
-          {...productHelpers(module as ProductWithWithoutSliderType)}
+        <ProductSliderBuilder
+          section_settings={section_settings}
+          row_settings={row_settings}
+          module={module}
         />
       );
     }
@@ -154,48 +155,9 @@ const Builder = ({ component }: Props) => {
         />
       );
     }
-    /*
 
-    case TWO_COLUMN_IMAGE_BLOCK: {
-      const { sub_content_module } = module.content_module;
-      return (
-        <TwoColumImage
-          data={TextImageHelper(sub_content_module)}
-          repeaterContent={
-            module.repeater_content.repeater_group.content_with_image
-          }
-          rowAttributes={rowAttributes(row_settings)}
-          sectionAttributes={sectionAttributes(section_settings)}
-          backgroundContent={
-            <BackgroundContentPage sectionSetting={section_settings} />
-          }
-        />
-      );
-    }
-    case BLOG: {
-      const { sub_content_module } = module.content_module;
-
-      return (
-        <Blog
-          fetchDataBy={blogHelper(sub_content_module)}
-          queryParams={{ params, searchParams }}
-          rowAttributes={rowAttributes(row_settings)}
-          sectionAttributes={sectionAttributes(section_settings)}
-          backgroundContent={
-            <BackgroundContentPage sectionSetting={section_settings} />
-          }
-        />
-      );
-    }
-    case BRAND: {
-      const { brand } = module.brands;
-      return <BrandListing params={params} brand={brand} />;
-    }
-    case PRODUCT_WITH_WITHOUT_SLIDER:
-      return <ProductWithSectionTitle {...productHelpers(module)} />;
-    */
     default:
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === "development") {
         return (
           <h5>
             {identifier} <i>(Builder not available)</i>

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import styled, { css } from 'styled-components';
-import { rem } from 'polished';
-import clsx from 'clsx';
+import styled, { css } from "styled-components";
+import { rem } from "polished";
+import clsx from "clsx";
 
-import Link from '../Link';
-import ImageWithFallback from '../ImageWithFallback';
-import Overlay from '../Overlay';
+import Link from "../Link";
+import ImageWithFallback from "../ImageWithFallback";
+import Overlay from "../Overlay";
 
 export type CardProps = {
   title?: string;
@@ -15,7 +15,7 @@ export type CardProps = {
   content?: string;
   btnLabel?: string;
   tag?: string;
-  cardHeight?: 'large' | 'medium' | 'small';
+  cardHeight?: "large" | "medium" | "small";
   customImageTitle?: number;
   className?: string;
   rounded?: number | string;
@@ -24,16 +24,16 @@ const CardItem = ({
   title,
   tag,
   src,
-  href = '#',
+  href = "#",
   content,
-  cardHeight = 'small',
+  cardHeight = "small",
   className,
   rounded = 0,
 }: CardProps) => {
   return (
-    <StyledCardItem className={clsx('card-item', className)}>
+    <StyledCardItem className={clsx("card-item", className)}>
       <StyledCardWrap>
-        <Link href={'/category/' + href}>
+        <Link href={"/category/" + href}>
           <StyledCardImage
             $rounded={rounded}
             className="card-img"
@@ -41,17 +41,15 @@ const CardItem = ({
           >
             <Overlay />
             <ImageWithFallback
-              src={src || ''}
-              fill
+              src={src || ""}
               className="object-cover"
               alt="Card Image"
-              priority
-              quality={100}
+              fill
             />
           </StyledCardImage>
           <StyledCardContent
-            className={clsx('card-content', {
-              'alt-card': cardHeight === 'small',
+            className={clsx("card-content", {
+              "alt-card": cardHeight === "small",
             })}
           >
             {title && <h6 className={tag}>{title}</h6>}
@@ -102,15 +100,15 @@ const StyledCardImage = styled.div<{
       background-color: transparent;
     }
 
-    ${$cardHeight === 'large' &&
+    ${$cardHeight === "large" &&
     css`
       padding-top: 130%;
     `}
-    ${$cardHeight === 'medium' &&
+    ${$cardHeight === "medium" &&
     css`
       padding-top: 122%;
     `}
-    ${$cardHeight === 'small' &&
+    ${$cardHeight === "small" &&
     css`
       padding-top: 125%;
     `}

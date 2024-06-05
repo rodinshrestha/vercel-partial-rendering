@@ -1,32 +1,34 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import styled, { css } from 'styled-components';
-import { rem, transparentize } from 'polished';
-import dynamic from 'next/dynamic';
-import clsx from 'clsx';
+import styled, { css } from "styled-components";
+import { rem, transparentize } from "polished";
+import dynamic from "next/dynamic";
+import clsx from "clsx";
 
-import { useAuth } from '@/auth/hooks/useAuth';
-import useWishlist from '@/wishlist/hooks/useWishlist';
-import Loader from '@/core/components/Loader';
-import Link from '@/core/components/Link';
-import ImageWithFallback from '@/core/components/ImageWithFallback';
-import useTranslations from '@/core/hooks/useTranslations';
+import { useAuth } from "@/auth/hooks/useAuth";
+import useWishlist from "@/wishlist/hooks/useWishlist";
+import Loader from "@/core/components/Loader";
+import Link from "@/core/components/Link";
+import ImageWithFallback from "@/core/components/ImageWithFallback";
+import useTranslations from "@/core/hooks/useTranslations";
 // import Badge from '@/core/components/Badge/Badge';
 import {
   ProductTypes,
   VarientProductDetailsType,
-} from '@/product/types/product.types';
-import { IconHeartOutline, IconHeartSolid } from '@/core/components/Icons';
-import Badge from '@/core/components/Badge/Badge';
+} from "@/product/types/product.types";
+import { IconHeartOutline, IconHeartSolid } from "@/core/components/Icons";
+import Badge from "@/core/components/Badge/Badge";
+import { ProfileUser } from "@/auth/types/user.types";
 
-import ProductPrice from '../Product/ProductPrice/ProductPrice';
+import ProductPrice from "../Product/ProductPrice/ProductPrice";
 
-const AuthCheckModal = dynamic(() => import('@/auth/components/AuthModal'));
+const AuthCheckModal = dynamic(() => import("@/auth/components/AuthModal"));
 
 type Props = {
   product: ProductTypes;
   className?: string;
+  user: ProfileUser | null;
 };
 
 enum Group {
@@ -36,12 +38,11 @@ enum Group {
 
 const MAX_COLOR_LIMIT = 5;
 
-const ProductItem = ({ product, className }: Props) => {
+const ProductItem = ({ product, className, user }: Props) => {
   const [wishListLoader, setWishListLoader] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const { user } = useAuth();
-  const { _t } = useTranslations();
+  // const { user } = useAuth();
   const { wishlist, wishlistHandler } = useWishlist();
 
   const { id: productId, name, url_key, brand, is_in_stock } = product;
@@ -57,22 +58,22 @@ const ProductItem = ({ product, className }: Props) => {
 
   const handleProductView = () => {};
 
-  const imageURL = 'base_image' in product ? product.base_image?.url : '';
+  const imageURL = "base_image" in product ? product.base_image?.url : "";
   const rolloverImage =
-    'rollover_image' in product ? product.rollover_image?.url || null : null;
+    "rollover_image" in product ? product.rollover_image?.url || null : null;
   const backgroundSize =
-    'base_image' in product
+    "base_image" in product
       ? product.base_image?.background_size
-      : 'object-cover';
+      : "object-cover";
 
   const handleWishlistClick = () => {
     setWishListLoader(true);
     const data = {
       id: productId as string,
-      image: imageURL || '',
+      image: imageURL || "",
       name: name,
-      sku: '' as string,
-      url_key: url_key || '#',
+      sku: "" as string,
+      url_key: url_key || "#",
       brand: brand,
       inStock: is_in_stock,
     };
@@ -84,13 +85,13 @@ const ProductItem = ({ product, className }: Props) => {
 
   const showColorAttribute =
     product.is_group_by === Group.ZERO &&
-    typeof product.configurable_attributes === 'object' &&
-    'color' in (product.configurable_attributes || {});
+    typeof product.configurable_attributes === "object" &&
+    "color" in (product.configurable_attributes || {});
 
   /** Show other attributes except */
   const showOverlappedAttributes =
     product.is_group_by === Group.ONE &&
-    typeof product.configurable_attributes === 'object' &&
+    typeof product.configurable_attributes === "object" &&
     !Array.isArray(product.configurable_attributes);
 
   const colorAttributes = React.useMemo(() => {
@@ -104,7 +105,7 @@ const ProductItem = ({ product, className }: Props) => {
     if (!showOverlappedAttributes) return [];
     // skip color and only take one attribute
     const keys = Object.keys(product.configurable_attributes as any);
-    const takeOne = keys.filter((x) => x !== 'color')[0];
+    const takeOne = keys.filter((x) => x !== "color")[0];
     if (takeOne) {
       return (product.configurable_attributes as any)[takeOne];
     }
@@ -130,8 +131,6 @@ const ProductItem = ({ product, className }: Props) => {
                   user?.email ? handleWishlistClick : () => setIsOpen(true)
                 }
               >
-                {/* <i className={`icon-heart${isFavourite ? '' : '_outline'}`} /> */}
-
                 {isFavourite ? (
                   <IconHeartSolid size={18} />
                 ) : (
@@ -149,15 +148,15 @@ const ProductItem = ({ product, className }: Props) => {
             <StyledItemImage>
               <ThumbImage
                 className={clsx(
-                  { 'thumbnail-image': !!rolloverImage },
-                  'product-image'
+                  { "thumbnail-image": !!rolloverImage },
+                  "product-image"
                 )}
               >
                 <ImageWithFallback
                   className="object-cover"
-                  src={imageURL || ''}
+                  src={imageURL || ""}
                   alt={`${product.name} thumbnail`}
-                  style={{ backgroundSize: backgroundSize || 'cover' }}
+                  style={{ backgroundSize: backgroundSize || "cover" }}
                   fill
                 />
               </ThumbImage>
@@ -169,7 +168,7 @@ const ProductItem = ({ product, className }: Props) => {
                     src={rolloverImage}
                     alt="Product rollover image"
                     fill
-                    style={{ backgroundSize: backgroundSize || 'cover' }}
+                    style={{ backgroundSize: backgroundSize || "cover" }}
                   />
                 </HoverImage>
               )}
@@ -217,7 +216,7 @@ const ProductItem = ({ product, className }: Props) => {
                       >
                         <span
                           style={{
-                            background: color.background_color || '#fff',
+                            background: color.background_color || "#fff",
                           }}
                         />
                       </li>
@@ -293,7 +292,7 @@ export const StyleBadgeWrap = styled.div`
     z-index: 1;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -391,7 +390,7 @@ export const HoverImage = styled(ThumbImage)`
 export const ItemHead = styled.div`
   ${({ theme }) => css`
     position: relative;
-    background-color: ${theme.color.white['1000']};
+    background-color: ${theme.color.white["1000"]};
     border-radius: ${rem(15)};
     height: 100%;
     display: flex;
@@ -440,7 +439,7 @@ export const ItemHead = styled.div`
                     color: ${theme.coreColor.danger.default.background};
 
                     &::before {
-                      content: '\e90c';
+                      content: "\e90c";
                     }
                   }
                 }
@@ -629,7 +628,7 @@ export const StyledItemContentWrap = styled.div`
               padding-left: 15px;
             }
 
-            [type='radio'] {
+            [type="radio"] {
               &:checked,
               &:not(:checked) {
                 display: none;

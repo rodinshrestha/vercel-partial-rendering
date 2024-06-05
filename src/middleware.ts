@@ -22,26 +22,10 @@ const removeNextAuthTokens = (req: NextRequest, response: NextResponse) => {
   }
 };
 
-const getRewritePath = (urlPath: string[]) => {
-  // const { NEXT_PUBLIC_AREA } = process.env;
-  // const vendor = NEXT_PUBLIC_AREA === 'default' ? 'b2c' : 'b2b';
-
-  /**
-   * Url path empty means,
-   * base page
-   */
-  if (!urlPath.length) {
-    return `/guest`;
-  }
-
-  return urlPath.map((x, i) => (i === 0 ? `guest/${x}` : x)).join("/");
-};
-
 export default async function middleware(req: NextRequest) {
   try {
     const url = req.nextUrl.clone();
     const { pathname } = req.nextUrl;
-    const urlPath = url.pathname.split("/").filter((x: string) => x);
 
     /**
      * Is redirected to token error page if Auth token in cookie is not valid
@@ -78,8 +62,6 @@ export default async function middleware(req: NextRequest) {
       throw "";
     }
 
-    url.pathname = getRewritePath(urlPath);
-
     const resp = NextResponse.rewrite(url);
 
     /**
@@ -95,11 +77,9 @@ export default async function middleware(req: NextRequest) {
       "status" in e &&
       [502, 503].includes(e.status)
     ) {
-      return NextResponse.redirect(new URL("/503", req.url));
+      return NextResponse.rewrite(new URL("/503", req.url));
     }
-    const res = NextResponse.rewrite(new URL("/404", req.url));
-
-    return res;
+    return NextResponse.rewrite(new URL("/404", req.url));
   }
 }
 

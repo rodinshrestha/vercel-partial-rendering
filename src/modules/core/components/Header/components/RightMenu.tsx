@@ -1,40 +1,32 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
-import styled from 'styled-components';
-import { rem } from 'polished';
-import { css } from 'styled-components';
-import clsx from 'clsx';
+import styled from "styled-components";
+import { rem } from "polished";
+import { css } from "styled-components";
 
-import useTranslations from '@/core/hooks/useTranslations';
-import useMediaQuery from '@/core/hooks/useMediaQuery';
-import { breakPoints } from '@/theme/breakPoints';
-import { IDLE, PENDING } from '@/core/constants/states';
-import useCart from '@/cart/hooks/useCart';
-import { useAuth } from '@/auth/hooks/useAuth';
-import useWishlist from '@/wishlist/hooks/useWishlist';
-import Loader from '@/core/components/Loader';
-import { ChannelsType } from '@/core/types/channels.types';
+import useTranslations from "@/core/hooks/useTranslations";
+import useMediaQuery from "@/core/hooks/useMediaQuery";
+import { breakPoints } from "@/theme/breakPoints";
+import { IDLE, PENDING } from "@/core/constants/states";
+import useCart from "@/cart/hooks/useCart";
+import Loader from "@/core/components/Loader";
+import { ChannelsType } from "@/core/types/channels.types";
 
-import { IconCart, IconHeartOutline, IconSearch } from '../../Icons';
-import { getTotalCartCount } from '../utils/get-total-cart-count';
-import { getTotalFavouriteCount } from '../utils/get-total-favourite-count';
-import FooterLanguageSelector from '../../Footer/FooterLanguageSelector';
-
-import LoginIcon from './LoginIcon';
+import { IconCart, IconSearch } from "../../Icons";
+import { getTotalCartCount } from "../utils/get-total-cart-count";
+import FooterLanguageSelector from "../../Footer/FooterLanguageSelector";
 
 type Props = {
   onHandleSearch: React.Dispatch<React.SetStateAction<boolean>>;
   channelList: ChannelsType;
+  children: React.ReactNode;
 };
 
-const RightMenu = ({ onHandleSearch, channelList }: Props) => {
+const RightMenu = ({ onHandleSearch, channelList, children }: Props) => {
   const { setIsCartDrawerOpen, cartList, cartStatus } = useCart();
   const { _t } = useTranslations();
   const isTab = useMediaQuery(breakPoints.tab);
-  const isTablet = useMediaQuery(breakPoints.tablet);
-  const { user } = useAuth();
-  const { setIsWishlistDrawerOpen, wishlist, wishlistLoader } = useWishlist();
 
   const isLoader = cartStatus === IDLE || cartStatus === PENDING;
 
@@ -43,13 +35,13 @@ const RightMenu = ({ onHandleSearch, channelList }: Props) => {
       <ul className="right-menu">
         <li className="right-menu-item">
           <span
-            className={clsx('search icon', { active: true })}
+            className="search icon active"
             onClick={() => {
               onHandleSearch((prev) => !prev);
             }}
           >
             {!isTab && (
-              <span className="icon-label">{_t('search', 'Search')}</span>
+              <span className="icon-label">{_t("search", "Search")}</span>
             )}
             <IconSearch className="menu-svg" size={16} />
           </span>
@@ -61,35 +53,10 @@ const RightMenu = ({ onHandleSearch, channelList }: Props) => {
             channelList={channelList}
           />
         </li>
+        {/* This  children component is from HeaderAuthSection */}
+        {children}
 
         <li className="right-menu-item">
-          <LoginIcon />
-        </li>
-
-        {user?.email && (
-          <li className="right-menu-item">
-            <span
-              className="fav icon"
-              onClick={() => setIsWishlistDrawerOpen(true)}
-            >
-              {!isTablet && (
-                <span className="icon-label">
-                  {_t('favorites', 'Favorites')}
-                </span>
-              )}
-              <small className="count fav-count">
-                {wishlistLoader ? (
-                  <Loader type="growing-loader" size="10px" color="dark" />
-                ) : (
-                  getTotalFavouriteCount(wishlist)
-                )}
-              </small>
-              <IconHeartOutline className="menu-svg" size={16} />
-            </span>
-          </li>
-        )}
-
-        <li className="reight-menu-item">
           <span
             className="cart icon"
             onClick={() => {
@@ -97,7 +64,7 @@ const RightMenu = ({ onHandleSearch, channelList }: Props) => {
             }}
           >
             {!isTab && (
-              <span className="icon-label"> {_t('cart', 'Cart')} </span>
+              <span className="icon-label"> {_t("cart", "Cart")} </span>
             )}
 
             <IconCart className="menu-svg" size={16} />
@@ -225,12 +192,12 @@ export const StyledRightMenu = styled.div`
             }
 
             &::after {
-              content: ')';
+              content: ")";
               right: 0;
             }
 
             &::before {
-              content: '(';
+              content: "(";
               left: 0;
             }
 
@@ -241,7 +208,7 @@ export const StyledRightMenu = styled.div`
               transform: translateY(-50%);
 
               @media (max-width: ${theme.breakPoints.tablet}) {
-                content: '';
+                content: "";
               }
             }
           }
@@ -291,7 +258,7 @@ export const StyledRightMenu = styled.div`
     a {
       .profile-name {
         margin-right: ${rem(20)};
-        color: ${theme.color.red['900']};
+        color: ${theme.color.red["900"]};
       }
     }
   `}
