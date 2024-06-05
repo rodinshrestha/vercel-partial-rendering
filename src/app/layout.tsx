@@ -17,6 +17,11 @@ import { getResolver } from "@/core/services/resolver-services";
 import ResolverProvider from "@/core/providers/ResolverProvider";
 import HeadersProvider from "@/core/providers/HeadersProvider";
 
+import "react-toastify/dist/ReactToastify.css";
+import "react-range-slider-input/dist/style.css";
+import "@adyen/adyen-web/dist/adyen.css";
+import "react-image-lightbox/style.css";
+
 const josefinSans = Josefin_Sans({
   subsets: ["latin"],
   display: "swap",
