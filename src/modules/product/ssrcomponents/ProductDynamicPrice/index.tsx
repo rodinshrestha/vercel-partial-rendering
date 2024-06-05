@@ -22,22 +22,13 @@ const ProductDynamicPrice = async ({ productSlug, productData }: Props) => {
   const user = await fetchProfile();
 
   if (headers?.Authorization) {
-    data = (await getProduct(productSlug, headers))?.data;
+    data = (await getProduct({ slug: productSlug, headers, cache: false }))
+      ?.data;
   }
 
   return (
     <>
-      <ProductPrice
-        productData={data}
-        changeAbleValue={{
-          price: "",
-          discountPrice: "",
-          qty: null,
-          memberPrice: null,
-          productName: null,
-          sku: null,
-        }}
-      />
+      <ProductPrice productData={data} />
       <ProductWishlist productData={data} user={user?.data || null} />
     </>
   );

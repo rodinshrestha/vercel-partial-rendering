@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<"slug">) {
   const [urlKey = ""] = slug || [];
   const headers = makeStaticHeaders();
 
-  const { data } = await getProduct(urlKey, headers);
+  const { data } = await getProduct({ slug: urlKey, headers });
 
   const { title, description, keywords } = getMetaData(data);
 
@@ -40,7 +40,7 @@ const Page = async ({ params }: PageProps<"slug">) => {
   const [urlKey = "", sku = ""] = slug || [];
 
   const headers = makeStaticHeaders();
-  const { data } = await getProduct(urlKey, headers);
+  const { data } = await getProduct({ slug: urlKey, headers });
 
   let pluckVariantDetailsFromSKU: VariationProductDetails | null = null;
 

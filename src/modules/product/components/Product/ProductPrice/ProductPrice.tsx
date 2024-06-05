@@ -1,20 +1,17 @@
 "use client";
-import {
-  ChangeAbleValueType,
-  ProductTypes,
-} from "@/product/types/product.types";
+import { ProductTypes } from "@/product/types/product.types";
 import { usePrice } from "@/product/hooks/usePrice";
+import useProductHelperStore from "@/product/store/useProductHelperStore";
 
 import { StyledDiv } from "./style";
 
 type Iprops = {
   productData: ProductTypes;
-  changeAbleValue?: ChangeAbleValueType;
 };
 
-const ProductPrice = ({ productData, changeAbleValue }: Iprops) => {
+const ProductPrice = ({ productData }: Iprops) => {
   const { discountPrice, finalPrice } = usePrice(productData);
-
+  const { changeAbleValue } = useProductHelperStore();
   return (
     <StyledDiv className="price-group-wrap">
       <div className="price-group">

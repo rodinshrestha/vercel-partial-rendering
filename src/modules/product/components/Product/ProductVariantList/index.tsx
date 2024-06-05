@@ -1,23 +1,23 @@
-import React from 'react';
+import React from "react";
 
-import clsx from 'clsx';
+import clsx from "clsx";
 
 import {
   ChangeAbleValueType,
   ProductTypes,
   VariationProductDetails,
-} from '@/product/types/product.types';
-import { SelectedProductVariants } from '@/product/types/selected-product-varaints-state.types';
-import { getVariantAttributeDisable } from '@/product/utils/get-variant-attributes-disable';
-import ProductGroupByController from '@/product/components/Product/ProductGroupByController';
-import ImageWithFallback from '@/core/components/ImageWithFallback';
-import { GROUP_BY_ZERO_PARENT_VISIBLE } from '@/product/constants/product.constant';
-import { getGroupByZeroProductNature } from '@/product/utils/get-product-group-by-nature';
-import { initializeChangeAbleValue } from '@/product/utils/initialize-changeable-value';
+} from "@/product/types/product.types";
+import { SelectedProductVariants } from "@/product/types/selected-product-varaints-state.types";
+import { getVariantAttributeDisable } from "@/product/utils/get-variant-attributes-disable";
+import ProductGroupByController from "@/product/components/Product/ProductGroupByController";
+import ImageWithFallback from "@/core/components/ImageWithFallback";
+import { GROUP_BY_ZERO_PARENT_VISIBLE } from "@/product/constants/product.constant";
+import { getGroupByZeroProductNature } from "@/product/utils/get-product-group-by-nature";
+import { initializeChangeAbleValue } from "@/product/utils/initialize-changeable-value";
 
-import SizeChartModal from '../SizeChartModal';
+import SizeChartModal from "../SizeChartModal";
 
-import { StyledDiv } from './style';
+import { StyledDiv } from "./style";
 
 type Props = {
   slug: string;
@@ -28,7 +28,7 @@ type Props = {
   >;
   selectedProductVariants: SelectedProductVariants;
   productData: ProductTypes;
-  setChangeAbleValue: React.Dispatch<React.SetStateAction<ChangeAbleValueType>>;
+  setChangeAbleValue: (state: ChangeAbleValueType) => void;
   index: number;
   productSlug: string;
   setAppliedQty: React.Dispatch<React.SetStateAction<number>>;
@@ -119,7 +119,7 @@ const ProductVariantList = ({
         );
       }
     } else {
-      setProductId('');
+      setProductId("");
       setChangeAbleValue(initializeChangeAbleValue());
       setSelectedProductVariants((prev) => {
         const found = prev.selectedAttributes.find(
@@ -174,7 +174,7 @@ const ProductVariantList = ({
     <StyledDiv>
       <span className="var-title">{slug}</span>:
       <div
-        className={clsx('varaints-wrapper', { 'size-attr': slug === 'size' })}
+        className={clsx("varaints-wrapper", { "size-attr": slug === "size" })}
       >
         {variantData.map((item, i) => {
           const disable = getVariantAttributeDisable(item);
@@ -190,25 +190,25 @@ const ProductVariantList = ({
               productSlug={productSlug}
               setProductId={setProductId}
             >
-              {slug === 'color' &&
-              (typeof item.thumbnail_image != 'string'
+              {slug === "color" &&
+              (typeof item.thumbnail_image != "string"
                 ? item?.thumbnail_image?.url
                 : item.thumbnail_image) ? (
                 <>
                   <ImageWithFallback
                     src={
-                      typeof item.thumbnail_image != 'string'
-                        ? item?.thumbnail_image?.url || ''
-                        : item.thumbnail_image || ''
+                      typeof item.thumbnail_image != "string"
+                        ? item?.thumbnail_image?.url || ""
+                        : item.thumbnail_image || ""
                     }
                     height={100}
                     width={80}
-                    alt={item.label || ''}
+                    alt={item.label || ""}
                     className="object-contain"
                   />
                 </>
-              ) : slug === 'color' &&
-                (typeof item.thumbnail_image != 'string'
+              ) : slug === "color" &&
+                (typeof item.thumbnail_image != "string"
                   ? !item?.thumbnail_image?.url
                   : !item.thumbnail_image) ? (
                 // If the color doesn't have thumbnail image then show a div with same height as the image
@@ -216,27 +216,27 @@ const ProductVariantList = ({
                   <div
                     className="color-text"
                     style={{
-                      height: '100px',
-                      width: '80px',
+                      height: "100px",
+                      width: "80px",
                       backgroundColor: `${item.background_color}`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    {item?.label || item[slug]?.label || ''}
+                    {item?.label || item[slug]?.label || ""}
                   </div>
                 </>
               ) : (
                 <div className="variants-title">
-                  {item?.label || item[slug]?.label || ''}
+                  {item?.label || item[slug]?.label || ""}
                 </div>
               )}
             </ProductGroupByController>
           );
         })}
       </div>
-      {slug === 'size' && productData.size_chart_id && (
+      {slug === "size" && productData.size_chart_id && (
         <SizeChartModal productData={productData} />
       )}
     </StyledDiv>

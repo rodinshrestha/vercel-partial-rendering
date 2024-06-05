@@ -4,7 +4,6 @@ import React from "react";
 import clsx from "clsx";
 
 import {
-  ChangeAbleValueType,
   ProductTypes,
   VariationProductDetails,
 } from "@/product/types/product.types";
@@ -33,6 +32,7 @@ import useHeaders from "@/core/hooks/useHeaders";
 import { getSelectedVariantFromSKU } from "../utils/get-selected-variant-from-sku";
 import { fetchProductAdditionalData } from "../services/product-additional-service";
 import { showConfigurableProductError } from "../utils/show-error-product";
+import useProductHelperStore from "../store/useProductHelperStore";
 
 type Props = {
   productData: ProductTypes;
@@ -52,6 +52,7 @@ const Product = ({
   const isConfigurableProduct = isConfigurableProducts(productData);
   const isTablet = useMediaQuery(breakPoints.tab);
   const { clientHeaders } = useHeaders();
+  const { changeAbleValue, setChangeAbleValue } = useProductHelperStore();
 
   const [additionalDataLoader, setAdditionalDataLoader] = React.useState(false);
   const [additionalData, setAdditionalData] =
@@ -59,15 +60,6 @@ const Product = ({
   const [isOpen, setIsOpen] = React.useState(false);
   const [appliedQty, setAppliedQty] = React.useState<number>(1);
   const [minimumQty, setMinimumQuantity] = React.useState<number>(1);
-  const [changeAbleValue, setChangeAbleValue] =
-    React.useState<ChangeAbleValueType>({
-      price: "",
-      discountPrice: "",
-      qty: null,
-      memberPrice: null,
-      productName: null,
-      sku: null,
-    });
 
   const [selectedVaraintsFromSKU, setSelectedVaraintsFromSKU] = React.useState(
     pluckVariantDetailsFromSKU
@@ -237,10 +229,7 @@ const Product = ({
                       changeAbleValue={changeAbleValue}
                     />
                     <div className="content-info-wrap">
-                      <div className="price-fav-wrap">
-                        {children}
-                        {/* <ProductWishlist productData={productData} /> */}
-                      </div>
+                      <div className="price-fav-wrap">{children}</div>
                     </div>
                     {isConfigurableProduct &&
                       Object.entries(

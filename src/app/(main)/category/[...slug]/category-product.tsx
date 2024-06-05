@@ -4,9 +4,9 @@ import {
   getCategoryFilters,
   getCategoryProducts,
 } from "@/category/services/category-service";
-import { makeStaticHeaders } from "@/core/utils/static-header";
 import CategorySingleLayout from "@/category/components/CategorySingleLayout/CategorySingleLayout";
 import { CategoryDataTypes } from "@/category/types/category.types";
+import { makeHeaders } from "@/core/utils/header";
 
 type Props = {
   slug: string;
@@ -14,7 +14,7 @@ type Props = {
   categoryData: CategoryDataTypes;
 };
 const CategoryProduct = async ({ slug, searchParams, categoryData }: Props) => {
-  const headers = makeStaticHeaders();
+  const headers = makeHeaders();
 
   const [categoryFilter, categoryProduct] = await Promise.all([
     getCategoryFilters(slug, headers),
