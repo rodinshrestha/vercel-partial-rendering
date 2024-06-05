@@ -6,13 +6,10 @@ import { rem, transparentize } from "polished";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
 
-import { useAuth } from "@/auth/hooks/useAuth";
 import useWishlist from "@/wishlist/hooks/useWishlist";
 import Loader from "@/core/components/Loader";
 import Link from "@/core/components/Link";
 import ImageWithFallback from "@/core/components/ImageWithFallback";
-import useTranslations from "@/core/hooks/useTranslations";
-// import Badge from '@/core/components/Badge/Badge';
 import {
   ProductTypes,
   VarientProductDetailsType,
@@ -42,7 +39,6 @@ const ProductItem = ({ product, className, user }: Props) => {
   const [wishListLoader, setWishListLoader] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // const { user } = useAuth();
   const { wishlist, wishlistHandler } = useWishlist();
 
   const { id: productId, name, url_key, brand, is_in_stock } = product;
