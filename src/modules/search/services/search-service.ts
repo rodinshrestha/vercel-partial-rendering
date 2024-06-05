@@ -1,7 +1,7 @@
 import { FilterAttributeType } from "@/category/types/category.types";
 import { executeFetch } from "@/lib/execute-fetch";
-import { publicAxios } from "@/core/utils/axios";
-import { HeaderType } from "@/core/types/api-headers.types";
+// import { publicAxios } from "@/core/utils/axios";
+// import { HeaderType } from "@/core/types/api-headers.types";
 import { PageProps } from "@/core/types/page-props.types";
 
 import { SearchType } from "../types/search.types";
@@ -17,10 +17,9 @@ export const getCatalogSearch = async (
     `/sf/catalog/search?product_page=${page}&q=${q}`,
     {
       headers,
-      cache: "no-cache",
+      cache: "no-store",
       next: {
         tags: ["search", `search+${q}`, "all"],
-        // revalidate: searchRevalidate,
       },
     }
   );
@@ -49,15 +48,15 @@ export const getCatalogSearchFilter = async (
   return (await response.json()) as { data: FilterAttributeType[] };
 };
 
-export const fetchfilteredCatalogSearchFilter = (
-  headers: HeaderType,
-  filteredQueryParams: string,
-  searchParams: PageProps["searchParams"]
-) => {
-  const { page = 1 } = searchParams;
-  const searchQuery = filteredQueryParams ? `&${filteredQueryParams}` : "";
+// export const fetchfilteredCatalogSearchFilter = (
+//   headers: HeaderType,
+//   filteredQueryParams: string,
+//   searchParams: PageProps["searchParams"]
+// ) => {
+//   const { page = 1 } = searchParams;
+//   const searchQuery = filteredQueryParams ? `&${filteredQueryParams}` : "";
 
-  const url = `/sf/catalog/search?product_page=${page}${searchQuery}`;
+//   const url = `/sf/catalog/search?product_page=${page}${searchQuery}`;
 
-  return publicAxios.get(url, { headers });
-};
+//   return publicAxios.get(url, { headers });
+// };

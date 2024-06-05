@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 
 import { PageProps } from "@/core/types/page-props.types";
 import SearchSuspenseLoader from "@/search/components/SearchSuspenseLoader";
+import SearchHeader from "@/search/components/SearchHeader";
 
 import SearchServerComponent from ".";
 
@@ -17,15 +18,16 @@ export async function generateMetadata() {
 }
 
 const Search = async ({ searchParams }: PageProps) => {
-  const key = `search=${searchParams.q}&page=${searchParams?.page || 1}`;
-
   return (
-    <Suspense
-      key={key}
-      fallback={<SearchSuspenseLoader searchParams={searchParams} />}
-    >
-      <SearchServerComponent searchParams={searchParams} />;
-    </Suspense>
+    <>
+      <SearchHeader searchParams={searchParams} />
+      <Suspense
+        key={JSON.stringify({ ...searchParams })}
+        fallback={<SearchSuspenseLoader />}
+      >
+        <SearchServerComponent searchParams={searchParams} />;
+      </Suspense>
+    </>
   );
 };
 
