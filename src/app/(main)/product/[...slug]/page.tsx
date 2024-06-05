@@ -15,8 +15,7 @@ import {
   pluckProductVaraint,
 } from "@/product/utils/get-product-group-by-nature";
 import { GROUP_BY_ZERO_PARENT_NOT_VISIBLE } from "@/product/constants/product.constant";
-
-import SsrPage from "./ssr";
+import ProductDynamicPrice from "@/product/ssrcomponents/ProductDynamicPrice";
 
 export async function generateMetadata({ params }: PageProps<"slug">) {
   const { slug }: any = params;
@@ -65,7 +64,7 @@ const Page = async ({ params }: PageProps<"slug">) => {
       productWithSlug={slug as any}
     >
       <Suspense fallback={<p>Loading.....</p>}>
-        <SsrPage />
+        <ProductDynamicPrice productSlug={urlKey} productData={data} />
       </Suspense>
     </Product>
   );

@@ -1,22 +1,24 @@
-import React from 'react';
+"use client";
 
-import Button from '@/core/components/Button';
-import { useAuth } from '@/auth/hooks/useAuth';
-import { ProductTypes } from '@/product/types/product.types';
-import useWishlist from '@/wishlist/hooks/useWishlist';
-import AuthCheckModal from '@/auth/components/AuthModal';
-import Loader from '@/core/components/Loader';
-import { IconHeartOutline, IconHeartSolid } from '@/core/components/Icons';
+import React from "react";
+
+import Button from "@/core/components/Button";
+import { ProductTypes } from "@/product/types/product.types";
+import useWishlist from "@/wishlist/hooks/useWishlist";
+import AuthCheckModal from "@/auth/components/AuthModal";
+import Loader from "@/core/components/Loader";
+import { IconHeartOutline, IconHeartSolid } from "@/core/components/Icons";
+import { ProfileUser } from "@/auth/types/user.types";
 
 type Props = {
   productData: ProductTypes;
+  user: ProfileUser | null;
 };
 
-const ProductWishlist = ({ productData }: Props) => {
+const ProductWishlist = ({ productData, user }: Props) => {
   const [wishListLoader, setWishListLoader] = React.useState(false);
   const [isAuthModelOpen, setIsAuthModelOpen] = React.useState(false);
 
-  const { user } = useAuth();
   const { wishlistHandler, wishlist } = useWishlist();
 
   const isWishList = React.useMemo(() => {

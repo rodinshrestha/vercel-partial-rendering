@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import clsx from 'clsx';
-import dynamic from 'next/dynamic';
+import clsx from "clsx";
+import dynamic from "next/dynamic";
 
-import Label from '@/core/components/FormField/Label';
-import Loader from '@/core/components/Loader';
+import Label from "@/core/components/FormField/Label";
+import Loader from "@/core/components/Loader";
 
-import DropdownIndicator from './DropdownIndicator';
-import { StyledDiv } from './style';
+import DropdownIndicator from "./DropdownIndicator";
+import { StyledDiv } from "./style";
 
-const Select = dynamic(() => import('react-select'), { ssr: false });
+const Select = dynamic(() => import("react-select"), { ssr: true });
 
 type Value = string | number;
 interface Option {
@@ -39,7 +39,7 @@ type DropDown = {
   placeholder?: string;
   hideSelectedOptions?: boolean;
   isSearchable?: boolean;
-  menuPlacement?: 'top' | 'bottom';
+  menuPlacement?: "top" | "bottom";
   menuIsOpen?: boolean;
   defaultValue?: string;
   maxMenuHeight?: number;
@@ -97,8 +97,8 @@ const SelectField = ({
   return (
     <>
       <StyledDiv
-        className={clsx('custom-select', className, {
-          'has-error': !!hasError,
+        className={clsx("custom-select", className, {
+          "has-error": !!hasError,
         })}
         $rounded={rounded}
       >
@@ -111,7 +111,7 @@ const SelectField = ({
         )}
         {label && (
           <Label
-            className={clsx('label-text', isError ? 'error' : null)}
+            className={clsx("label-text", isError ? "error" : null)}
             text={label}
           />
         )}
@@ -121,19 +121,19 @@ const SelectField = ({
           options={options}
           name={name}
           className={clsx(`basic-select`, {
-            'has-multiple-select': multiple,
-            'has-error': hasError,
+            "has-multiple-select": multiple,
+            "has-error": hasError,
             disable: loader,
           })}
-          classNamePrefix={clsx(classNamePrefix, 'select')}
+          classNamePrefix={clsx(classNamePrefix, "select")}
           onChange={onChange}
           components={{ DropdownIndicator, ...components }}
           placeholder={placeholder}
           menuIsOpen={menuIsOpen}
           value={
             value || value === 0
-              ? options.find((x) => x.value === value) || ''
-              : ''
+              ? options.find((x) => x.value === value) || ""
+              : ""
           }
           isMulti={multiple}
           isSearchable={!!isSearchable}
@@ -150,7 +150,7 @@ const SelectField = ({
 
         {processing && (
           <Loader
-            className={clsx('select-loader', loaderClassName)}
+            className={clsx("select-loader", loaderClassName)}
             type="spinner"
             color="primary"
           />

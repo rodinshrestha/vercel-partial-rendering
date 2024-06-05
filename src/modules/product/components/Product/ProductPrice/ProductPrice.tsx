@@ -1,10 +1,11 @@
+"use client";
 import {
   ChangeAbleValueType,
   ProductTypes,
-} from '@/product/types/product.types';
-import { usePrice } from '@/product/hooks/usePrice';
+} from "@/product/types/product.types";
+import { usePrice } from "@/product/hooks/usePrice";
 
-import { StyledDiv } from './style';
+import { StyledDiv } from "./style";
 
 type Iprops = {
   productData: ProductTypes;

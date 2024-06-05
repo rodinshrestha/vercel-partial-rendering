@@ -26,7 +26,6 @@ import { initializeProductId } from "@/product/utils/initialize-product-id";
 import ProductVariantList from "@/product/components/Product/ProductVariantList";
 import ProductCTA from "@/product/components/Product/ProductCTA";
 import ProductAdditionalDetails from "@/product/components/ProductAdditionalDetails";
-import ProductPrice from "@/product/components/Product/ProductPrice/ProductPrice";
 import AuthCheckModal from "@/auth/components/AuthModal";
 import getSortVariants from "@/product/utils/get-variant-sorting";
 import useHeaders from "@/core/hooks/useHeaders";
@@ -34,7 +33,6 @@ import useHeaders from "@/core/hooks/useHeaders";
 import { getSelectedVariantFromSKU } from "../utils/get-selected-variant-from-sku";
 import { fetchProductAdditionalData } from "../services/product-additional-service";
 import { showConfigurableProductError } from "../utils/show-error-product";
-import ProductWishlist from "../components/ProductWishlist";
 
 type Props = {
   productData: ProductTypes;
@@ -240,11 +238,8 @@ const Product = ({
                     />
                     <div className="content-info-wrap">
                       <div className="price-fav-wrap">
-                        <ProductPrice
-                          productData={productData}
-                          changeAbleValue={changeAbleValue}
-                        />
-                        <ProductWishlist productData={productData} />
+                        {children}
+                        {/* <ProductWishlist productData={productData} /> */}
                       </div>
                     </div>
                     {isConfigurableProduct &&
@@ -290,7 +285,6 @@ const Product = ({
                       selectedGroupBy={selectedGroupBy}
                       minimumQty={minimumQty}
                     />
-                    {children}
                     <ProductStockStatus
                       productData={productData}
                       productId={productId}

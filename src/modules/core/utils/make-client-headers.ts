@@ -6,6 +6,7 @@ import {
   storeHeaderKey,
 } from "@/core/constants/token.constants";
 import { getCartToken } from "@/modules/cart/utils/cart-cookie";
+import { getAuthToken } from "@/auth/utils/auth-cookie";
 
 import { initializeHeaderType } from "../types/api-headers.types";
 
@@ -21,13 +22,14 @@ import { initializeHeaderType } from "../types/api-headers.types";
 export const makeClientHeaders = (
   initializeHeaders: initializeHeaderType & { cartToken: string }
 ) => {
-  const { channel, store, authId, cartToken } = initializeHeaders || {};
-  const cartID = cartToken || getCartToken();
+  const { channel, store } = initializeHeaders || {};
+  const cartID = getCartToken();
+  const authToken = getAuthToken();
 
   return {
     [channelHeaderKey]: channel,
     [storeHeaderKey]: store,
-    ...(cartID && !authId ? { [cartHeaderKey]: cartID } : {}),
-    ...(authId ? { Authorization: `Bearer ${authId}` } : {}),
+    ...(cartID && !authToken ? { [cartHeaderKey]: cartID } : {}),
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
   };
 };
