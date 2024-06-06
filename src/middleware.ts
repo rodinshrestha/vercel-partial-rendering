@@ -66,7 +66,7 @@ export default async function middleware(req: NextRequest) {
 
     /**
      * set actual pathname to headers can be access in server side
-     * headers().get("x-pathname")
+     * headers().get("x-pathname")asd
      */
     resp.headers.set("x-pathname", pathname);
 
