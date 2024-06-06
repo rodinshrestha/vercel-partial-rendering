@@ -39,6 +39,7 @@ const Link = ({
       {...rest}
       title={title || label || ""}
       style={style}
+      prefetch
     >
       {label ?? children}
     </NextLink>
