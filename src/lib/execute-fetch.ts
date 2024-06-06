@@ -1,4 +1,5 @@
-export const apiURL = process.env.NEXT_PUBLIC_API_URL;
+// export const apiURL = process.env.NEXT_PUBLIC_API_URL;
+const apiURL = "https://api.jacson.com";
 
 export const executeFetch = async (
   url: `/${string}`,
