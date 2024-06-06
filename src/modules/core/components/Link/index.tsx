@@ -37,7 +37,6 @@ const Link = ({
       target={newTab ? "_blank" : ""}
       className={className}
       {...rest}
-      prefetch
       title={title || label || ""}
       style={style}
     >
